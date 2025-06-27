@@ -1,0 +1,16 @@
+{
+  "servers": {
+    "my_laptop": {
+      "ip": "192.168.10.45"
+    }
+  },
+  "services": {
+    "warehouse-srv": {
+      "server": "my_laptop",
+      "port": 5000,
+      "username": "admin",
+      "password": "123456",
+      "healthUrl": "/backend/health"
+    }
+  }
+}
