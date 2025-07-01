@@ -2,20 +2,17 @@ import { useState } from "react";
 import { Upload, Download } from "lucide-react";
 import BufferSelectionModal from "./BufferSelectionModal";
 
-interface BufferRef {
-  bufferGroupKey: string;
-  bufferGroupName: string;
-}
-
-interface LoadUnloadButtonsProps {
+interface Props {
   loadBuffers: BufferRef[];
   unloadBuffers: BufferRef[];
+  onSelect: (bufferKey: string, type: "load" | "unload") => void;
 }
 
 export default function LoadUnloadButtons({
   loadBuffers,
   unloadBuffers,
-}: LoadUnloadButtonsProps) {
+  onSelect,
+}: Props) {
   const [modalType, setModalType] = useState<"load" | "unload" | null>(null);
 
   const canLoad = loadBuffers.length > 0;
@@ -28,47 +25,54 @@ export default function LoadUnloadButtons({
   };
 
   const handleSelectBuffer = (selectedKey: string) => {
-    console.log(`Performing ${modalType} with buffer:`, selectedKey);
+    if (modalType) {
+      onSelect(selectedKey, modalType);
+    }
     setModalType(null);
   };
 
   const activeBufferList = modalType === "load" ? loadBuffers : unloadBuffers;
 
+  const baseStyle =
+    "w-full py-2 rounded-md border text-sm tracking-wide uppercase font-semibold transition-all duration-200 active:scale-95 cursor-pointer";
+
+  const getButtonStyle = (enabled: boolean, color: "yellow" | "blue") => {
+    if (!enabled) {
+      return "text-gray-500 border-gray-700 cursor-not-allowed opacity-50";
+    }
+
+    const colorMap = {
+      yellow:
+        "text-yellow-400 border-yellow-600 hover:bg-yellow-900 focus:ring-yellow-400",
+      blue: "text-blue-400 border-blue-600 hover:bg-blue-900 focus:ring-blue-400",
+    };
+
+    return colorMap[color];
+  };
+
   return (
     <>
-      <div className="flex gap-4 px-4 justify-center">
+      <div className="flex h-10 w-full gap-4 justify-between">
+        {/* Load Button */}
         <button
           onClick={() => handleOpenModal("load")}
           disabled={!canLoad}
-          className={`relative w-full group px-5 py-2 text-xs font-extrabold uppercase tracking-widest
-            border rounded-md bg-gray-900 transition-all duration-200 active:scale-95 focus:ring-2
-            ${
-              canLoad
-                ? "text-yellow-400 border-yellow-600 hover:bg-yellow-900 focus:ring-yellow-400"
-                : "text-gray-500 border-gray-700 cursor-not-allowed opacity-50"
-            }`}
+          className={`${baseStyle} ${getButtonStyle(canLoad, "yellow")}`}
         >
-          <span className="absolute -inset-1 rounded-md border border-yellow-800 opacity-30 group-hover:opacity-60 pointer-events-none" />
           <span className="flex items-center justify-center gap-2">
-            <Upload className="w-4 h-4" />
+            <Upload className="w-4 h-4 inline lg:hidden xl:inline" />
             Load
           </span>
         </button>
 
+        {/* Unload Button */}
         <button
           onClick={() => handleOpenModal("unload")}
           disabled={!canUnload}
-          className={`relative w-full group px-5 py-2 text-xs font-extrabold uppercase tracking-widest
-            border rounded-md bg-gray-900 transition-all duration-200 active:scale-95 focus:ring-2
-            ${
-              canUnload
-                ? "text-blue-400 border-blue-600 hover:bg-blue-900 focus:ring-blue-400"
-                : "text-gray-500 border-gray-700 cursor-not-allowed opacity-50"
-            }`}
+          className={`${baseStyle} ${getButtonStyle(canUnload, "blue")}`}
         >
-          <span className="absolute -inset-1 rounded-md border border-blue-800 opacity-30 group-hover:opacity-60 pointer-events-none" />
           <span className="flex items-center justify-center gap-2">
-            <Download className="w-4 h-4" />
+            <Download className="w-4 h-4 inline lg:hidden xl:inline" />
             Unload
           </span>
         </button>

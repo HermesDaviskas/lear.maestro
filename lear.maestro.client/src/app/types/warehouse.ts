@@ -1,49 +1,38 @@
-// types/warehouse.ts
+// === Buffer Related Types ===
+type BufferFriendlyName = string;
+type BufferContents = number[];
+type BufferUsage = "load" | "unload";
+type BufferActivity = null | string;
 
-// Raw API shape
-export interface BufferGroup {
-  [groupName: string]: {
-    nameStr: string;
-    contents: number[];
-    usage: "load" | "unload";
-  };
-}
+type RawBuffer = {
+  nameStr: BufferFriendlyName;
+  contents: BufferContents;
+  usage: BufferUsage;
+};
 
-export interface Section {
-  [sectionName: string]: {
-    nameStr: string;
-    contents: number[];
-    length: number;
-    positionCapacity: number;
-  };
-}
-
-// Full API response structure
-export interface WarehouseServiceResponse {
-  buffers: BufferGroup[];
-  innerSections: Section[];
-  outerSections: Section[];
-}
-
-// Normalized format for frontend logic & UI
-export interface BufferGroupFlattened {
+type BufferRef = {
   bufferGroupKey: string;
   bufferGroupName: string;
-  usage: "load" | "unload";
-  status: "waiting" | "inMission" | "complete";
-  contents: number[];
-  quantity?: number;
-}
+};
 
-export interface SectionFlattened {
-  sectionKey: string;
-  sectionName: string;
-  contents: number[];
-  rows: number;
-  rowLength: number;
-  positionMaxCapacity: number;
-  totalCapacity: number;
-  stockedCapacity: number;
-  freeCapacity: number;
-  status: "Empty" | "Full" | "Partial";
-}
+// === Section Related Types ===
+type SectionFriendlyName = string;
+type SectionContents = number[];
+type SectionLength = number;
+type SectionPositionCapacity = number;
+type SectionActivity = null | string;
+
+type RawSection = {
+  nameStr: SectionFriendlyName;
+  contents: SectionContents;
+  length: SectionLength;
+  sectionLength: SectionLength;
+  positionCapacity: SectionPositionCapacity;
+};
+
+// === API Response Type ===
+type WarehouseResponse = {
+  buffers: Record<string, RawBuffer>[];
+  innerSections: Record<string, RawSection>[];
+  outerSections: Record<string, RawSection>[];
+};

@@ -29,7 +29,8 @@
     ".next/types/**/*.ts",
     "src/app/app_components/PingTool/pinger.tjs",
     "src/app/settings/page.old",
-    "src/app/app_components/sectionTool/Header.tsx"
+    "src/app/app_components/sectionTool/Header.tsx",
+    "src/app/types/warehouse.ts_"
   ],
   "exclude": ["node_modules"]
 }

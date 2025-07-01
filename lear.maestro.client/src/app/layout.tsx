@@ -25,13 +25,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className="h-full ">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable}  antialiased flex flex-col min-h-screen`}
       >
         <Header title="Lear .maestro client" subtitle="1.0.0" />
         <NavBar />
-        <main className="flex-grow px-4 py-2 pb-16 flex">
+        <main className="flex-grow px-4 py-2 pb-16 flex bg-black">
           <ServiceConfigProvider>{children}</ServiceConfigProvider>
         </main>
         <Footer title="© 2025 Maestro" subtitle="All rights reserved" />
