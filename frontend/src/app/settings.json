@@ -8,26 +8,26 @@
     }
   },
   "services": {
-    "proxy": {
-      "server": "my_laptop",
-      "port": 4000,
-      "username": "admin",
-      "password": "123456",
-      "healthUrl": "backend/health"
-    },
     "missions-srv": {
       "server": "logic-pc",
       "port": 5000,
-      "username": "admin",
-      "password": "123456",
-      "healthUrl": "backend/health"
+      "username": "",
+      "password": "",
+      "healthUrl": "health"
     },
     "warehouse-srv": {
+      "server": "logic-pc",
+      "port": 5001,
+      "username": "",
+      "password": "",
+      "healthUrl": "health"
+    },
+    "proxy-srv": {
       "server": "my_laptop",
-      "port": 5000,
-      "username": "admin",
-      "password": "123456",
-      "healthUrl": "backend/health"
+      "port": 4000,
+      "username": "",
+      "password": "",
+      "healthUrl": "health"
     }
   }
 }

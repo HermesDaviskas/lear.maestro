@@ -1,4 +1,3 @@
-// src/app/useSettingsData.ts
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {
@@ -23,9 +22,9 @@ export function useSettingsData() {
   const [newServiceName, setNewServiceName] = useState("");
   const [selectedServer, setSelectedServer] = useState("");
   const [port, setPort] = useState("");
-  const [username, setUsername] = useState("admin");
-  const [password, setPassword] = useState("123456");
-  const [healthUrl, setHealthUrl] = useState("backend/health");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [healthUrl, setHealthUrl] = useState("");
 
   useEffect(() => {
     fetchSettings();

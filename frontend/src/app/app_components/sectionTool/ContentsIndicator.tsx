@@ -8,24 +8,27 @@ export default function ContentsIndicator({ contents, length, positionCapacity }
   return (
     <div className="flex flex-col gap-1 h-full">
       {contents.map((value, rowIndex) => (
-        <div
-          key={rowIndex}
-          className="flex flex-row-reverse gap-2 items-center justify-start px-4 py-2 border border-gray-700 rounded-md"
+        <section
+          key={rowIndex} // ✅ key belongs here
+          className="flex w-full items-center justify-between border border-gray-700 rounded-md px-4 py-2 text-lg font-bold text-gray-400 lowercase"
         >
-          {calcStockPerPosition(value, positionCapacity, length).map(
-            (posValue, posIndex) => (
-              <div
-                key={posIndex}
-                className={`flex w-8 aspect-square rounded-md items-center justify-center font-bold text-xs border transition-all duration-150 cursor-pointer ${getIndicatorStyle(
-                  posValue,
-                  positionCapacity
-                )}`}
-              >
-                {posValue > 0 ? posValue : null}
-              </div>
-            )
-          )}
-        </div>
+          {"<->"}
+          <div className="flex flex-row-reverse gap-2">
+            {calcStockPerPosition(value, positionCapacity, length).map(
+              (posValue, posIndex) => (
+                <div
+                  key={posIndex}
+                  className={`flex w-8 aspect-square rounded-md items-center justify-center font-bold text-xs border transition-all duration-150 cursor-pointer ${getIndicatorStyle(
+                    posValue,
+                    positionCapacity
+                  )}`}
+                >
+                  {posValue > 0 ? posValue : null}
+                </div>
+              )
+            )}
+          </div>
+        </section>
       ))}
     </div>
   );

@@ -31,9 +31,13 @@ export default function ServiceTool({
 }: Props) {
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(false);
+
   const [currentServer, setCurrentServer] = useState(server);
   const [currentPort, setCurrentPort] = useState(port.toString());
+  const [currentUsername, setCurrentUsername] = useState(username ?? "");
+  const [currentPassword, setCurrentPassword] = useState(password ?? "");
   const [currentHealthUrl, setCurrentHealthUrl] = useState(healthUrl ?? "");
+
   const [status, setStatus] = useState<"up" | "down" | "unknown">("unknown");
   const [serverOptions, setServerOptions] = useState<string[]>([]);
   const [serverMap, setServerMap] = useState<Record<string, { ip: string }>>({});
@@ -92,8 +96,8 @@ export default function ServiceTool({
     onUpdate({
       server: currentServer,
       port: parseInt(currentPort),
-      username,
-      password,
+      username: currentUsername,
+      password: currentPassword,
       healthUrl: currentHealthUrl,
     });
     checkHealth();
@@ -108,7 +112,12 @@ export default function ServiceTool({
     );
   };
 
-  const isModified = currentServer !== server || parseInt(currentPort) !== port;
+  const isModified =
+    currentServer !== server ||
+    parseInt(currentPort) !== port ||
+    currentUsername !== username ||
+    currentPassword !== password ||
+    currentHealthUrl !== healthUrl;
 
   // ───────────────────────────────────────────────────────────────
   // Render
@@ -145,11 +154,17 @@ export default function ServiceTool({
                   setCurrentServer={setCurrentServer}
                   currentPort={currentPort}
                   setCurrentPort={setCurrentPort}
+                  currentUsername={currentUsername}
+                  setCurrentUsername={setCurrentUsername}
+                  currentPassword={currentPassword}
+                  setCurrentPassword={setCurrentPassword}
+                  currentHealthUrl={currentHealthUrl}
+                  setCurrentHealthUrl={setCurrentHealthUrl}
                 />
               </div>
 
               {/* Controls */}
-              <div className="flex w-full h-full md:w-1/2 lg:w-2/3 xl:w-1/2 p-4 gap-4">
+              <div className="flex flex-col w-full md:w-1/2 lg:w-1/3 xl:w-1/2 p-4 gap-4">
                 <Controls
                   loading={loading}
                   canCheck={!loading && isValidCheck()}

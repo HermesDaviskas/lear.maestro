@@ -21,8 +21,8 @@ export default function Controls({
   onDelete,
 }: Props) {
   return (
-    <div className="flex flex-col gap-4 w-full">
-      <section className="flex gap-4 justify-end">
+    <div className="flex flex-col gap-4 w-full h-full justify-start">
+      <section className="flex gap-4 justify-between">
         <button
           onClick={onCheck}
           disabled={!canCheck}
@@ -32,7 +32,7 @@ export default function Controls({
         </button>
       </section>
 
-      <section className="flex gap-4 justify-end">
+      <section className="flex gap-4 justify-between">
         <button
           onClick={onUpdate}
           disabled={!canUpdate}

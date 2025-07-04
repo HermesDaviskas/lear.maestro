@@ -104,7 +104,7 @@ Props) {
               </div>
 
               {/* Right Panel */}
-              <div className="flex w-full h-full md:w-1/2 lg:w-2/3 xl:w-1/2 p-4 gap-4 bg-gray-900">
+              <div className="flex w-full md:w-1/2 lg:w-1/3 xl:w-1/2 p-4 gap-4 bg-gray-900 border-r border-gray-800">
                 <div className="flex flex-col w-full lg:w-1/2 gap-4 justify-between">
                   <CapacityPanel
                     contents={section.contents}

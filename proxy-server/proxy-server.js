@@ -15,14 +15,15 @@ app.use(cors()); // ✅ Enable CORS for all origins
 app.use(bodyParser.json());
 
 // === Health check endpoint ===
-app.get("/backend/health", (req, res) => {
+app.get("/health", (req, res) => {
   res.status(200).send({});
 });
 
 // === Receive updates from backend ===
-app.post("/update-warehouse", (req, res) => {
+app.post("/api/update-warehouse", (req, res) => {
   latestWarehouseData = req.body;
   console.log("Received update from backend");
+  console.log(JSON.stringify(latestWarehouseData, null, 2));
   // Broadcast to all connected WebSocket clients
   const msg = JSON.stringify(latestWarehouseData);
   wss.clients.forEach((client) => {
